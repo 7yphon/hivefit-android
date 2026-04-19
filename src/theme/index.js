@@ -1,18 +1,18 @@
 export const colors = {
-  bg: '#0f0f0f',
-  surface: '#1a1a1a',
-  card: '#222222',
-  border: '#2e2e2e',
-  primary: '#c8f03c',      // lime green — main accent
-  primaryDim: '#8faa2a',
-  text: '#f0f0f0',
-  textSub: '#888888',
-  textMuted: '#555555',
-  success: '#3ccc6e',
-  warning: '#f0b03c',
-  danger: '#f04040',
-  martial: '#c87840',      // orange — martial arts sessions
-  rest: '#3c8ff0',         // blue — rest timer
+  bg: '#0c0900',
+  surface: '#1c1600',
+  card: '#2a2010',
+  border: '#3a3020',
+  primary: '#f59e0b',      // amber — OpenHive accent
+  primaryDim: '#a06a08',
+  text: '#e0e0e0',
+  textSub: '#a09060',
+  textMuted: '#6a5a30',
+  success: '#22c55e',
+  warning: '#f97316',
+  danger: '#ef4444',
+  martial: '#f97316',      // orange — martial arts sessions
+  rest: '#10b981',         // teal — rest timer
 };
 
 export const spacing = {
