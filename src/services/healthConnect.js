@@ -35,11 +35,15 @@ export async function initHealthConnect() {
   }
 }
 
-// Shows the Health Connect permission dialog. Call only from a user interaction.
-// Returns the array of granted permissions (may be empty if denied).
+// On Android 14+ requestPermission returns empty immediately (platform behaviour).
+// Falls back to openHealthConnectSettings; AppState listener handles resume.
 export async function requestHealthPermissions() {
   await ensureInitialized();
-  return requestPermission(PERMISSIONS);
+  const result = await requestPermission(PERMISSIONS);
+  if (!result || result.length === 0) {
+    await openHealthConnectSettings();
+  }
+  return result || [];
 }
 
 // Safe to call anytime — checks already-granted permissions without a dialog

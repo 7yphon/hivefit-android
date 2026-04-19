@@ -7,7 +7,7 @@ index 0000000..0d259dd
 +o/classes
 diff --git a/node_modules/react-native-health-connect/android/build/.transforms/0ff837376662fb5e920eaa90ddca86c5/transformed/classes/classes_dex/classes.dex b/node_modules/react-native-health-connect/android/build/.transforms/0ff837376662fb5e920eaa90ddca86c5/transformed/classes/classes_dex/classes.dex
 new file mode 100644
-index 0000000..95f5c48
+index 0000000..3480dac
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/.transforms/0ff837376662fb5e920eaa90ddca86c5/transformed/classes/classes_dex/classes.dex differ
 diff --git a/node_modules/react-native-health-connect/android/build/.transforms/8f21bed802c512b42c9559eadf3ba68d/results.bin b/node_modules/react-native-health-connect/android/build/.transforms/8f21bed802c512b42c9559eadf3ba68d/results.bin
 new file mode 100644
@@ -100,17 +100,33 @@ diff --git a/node_modules/react-native-health-connect/android/build/.transforms/
 new file mode 100644
 index 0000000..382748c
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/.transforms/8f21bed802c512b42c9559eadf3ba68d/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/dev/matinzd/healthconnect/permissions/AccessType.dex differ
+diff --git a/node_modules/react-native-health-connect/android/build/.transforms/8f21bed802c512b42c9559eadf3ba68d/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchExerciseRouteAccessRequestDialog$1.dex b/node_modules/react-native-health-connect/android/build/.transforms/8f21bed802c512b42c9559eadf3ba68d/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchExerciseRouteAccessRequestDialog$1.dex
+new file mode 100644
+index 0000000..826de39
+Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/.transforms/8f21bed802c512b42c9559eadf3ba68d/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchExerciseRouteAccessRequestDialog$1.dex differ
+diff --git a/node_modules/react-native-health-connect/android/build/.transforms/8f21bed802c512b42c9559eadf3ba68d/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchExerciseRouteAccessRequestDialog$2.dex b/node_modules/react-native-health-connect/android/build/.transforms/8f21bed802c512b42c9559eadf3ba68d/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchExerciseRouteAccessRequestDialog$2.dex
+new file mode 100644
+index 0000000..f0d5b25
+Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/.transforms/8f21bed802c512b42c9559eadf3ba68d/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchExerciseRouteAccessRequestDialog$2.dex differ
+diff --git a/node_modules/react-native-health-connect/android/build/.transforms/8f21bed802c512b42c9559eadf3ba68d/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchPermissionsDialog$1.dex b/node_modules/react-native-health-connect/android/build/.transforms/8f21bed802c512b42c9559eadf3ba68d/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchPermissionsDialog$1.dex
+new file mode 100644
+index 0000000..1017e00
+Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/.transforms/8f21bed802c512b42c9559eadf3ba68d/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchPermissionsDialog$1.dex differ
+diff --git a/node_modules/react-native-health-connect/android/build/.transforms/8f21bed802c512b42c9559eadf3ba68d/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchPermissionsDialog$2.dex b/node_modules/react-native-health-connect/android/build/.transforms/8f21bed802c512b42c9559eadf3ba68d/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchPermissionsDialog$2.dex
+new file mode 100644
+index 0000000..20b2465
+Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/.transforms/8f21bed802c512b42c9559eadf3ba68d/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchPermissionsDialog$2.dex differ
 diff --git a/node_modules/react-native-health-connect/android/build/.transforms/8f21bed802c512b42c9559eadf3ba68d/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$setPermissionDelegate$1$1.dex b/node_modules/react-native-health-connect/android/build/.transforms/8f21bed802c512b42c9559eadf3ba68d/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$setPermissionDelegate$1$1.dex
 new file mode 100644
-index 0000000..2fe4a53
+index 0000000..753b7e9
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/.transforms/8f21bed802c512b42c9559eadf3ba68d/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$setPermissionDelegate$1$1.dex differ
 diff --git a/node_modules/react-native-health-connect/android/build/.transforms/8f21bed802c512b42c9559eadf3ba68d/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$setPermissionDelegate$2$1.dex b/node_modules/react-native-health-connect/android/build/.transforms/8f21bed802c512b42c9559eadf3ba68d/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$setPermissionDelegate$2$1.dex
 new file mode 100644
-index 0000000..74b6d56
+index 0000000..202dac6
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/.transforms/8f21bed802c512b42c9559eadf3ba68d/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$setPermissionDelegate$2$1.dex differ
 diff --git a/node_modules/react-native-health-connect/android/build/.transforms/8f21bed802c512b42c9559eadf3ba68d/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate.dex b/node_modules/react-native-health-connect/android/build/.transforms/8f21bed802c512b42c9559eadf3ba68d/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate.dex
 new file mode 100644
-index 0000000..217a76a
+index 0000000..e45ce90
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/.transforms/8f21bed802c512b42c9559eadf3ba68d/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate.dex differ
 diff --git a/node_modules/react-native-health-connect/android/build/.transforms/8f21bed802c512b42c9559eadf3ba68d/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/dev/matinzd/healthconnect/permissions/PermissionUtils$Companion$getGrantedPermissions$1.dex b/node_modules/react-native-health-connect/android/build/.transforms/8f21bed802c512b42c9559eadf3ba68d/transformed/bundleLibRuntimeToDirDebug/bundleLibRuntimeToDirDebug_dex/dev/matinzd/healthconnect/permissions/PermissionUtils$Companion$getGrantedPermissions$1.dex
 new file mode 100644
@@ -1453,7 +1469,7 @@ index 0000000..23e2a06
 \ No newline at end of file
 diff --git a/node_modules/react-native-health-connect/android/build/intermediates/aar_main_jar/debug/syncDebugLibJars/classes.jar b/node_modules/react-native-health-connect/android/build/intermediates/aar_main_jar/debug/syncDebugLibJars/classes.jar
 new file mode 100644
-index 0000000..b9a4aed
+index 0000000..392c8c6
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/intermediates/aar_main_jar/debug/syncDebugLibJars/classes.jar differ
 diff --git a/node_modules/react-native-health-connect/android/build/intermediates/aar_metadata/debug/writeDebugAarMetadata/aar-metadata.properties b/node_modules/react-native-health-connect/android/build/intermediates/aar_metadata/debug/writeDebugAarMetadata/aar-metadata.properties
 new file mode 100644
@@ -1480,7 +1496,7 @@ new file mode 100644
 index 0000000..e69de29
 diff --git a/node_modules/react-native-health-connect/android/build/intermediates/compile_library_classes_jar/debug/bundleLibCompileToJarDebug/classes.jar b/node_modules/react-native-health-connect/android/build/intermediates/compile_library_classes_jar/debug/bundleLibCompileToJarDebug/classes.jar
 new file mode 100644
-index 0000000..4da8a1e
+index 0000000..2482868
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/intermediates/compile_library_classes_jar/debug/bundleLibCompileToJarDebug/classes.jar differ
 diff --git a/node_modules/react-native-health-connect/android/build/intermediates/compile_r_class_jar/debug/generateDebugRFile/R.jar b/node_modules/react-native-health-connect/android/build/intermediates/compile_r_class_jar/debug/generateDebugRFile/R.jar
 new file mode 100644
@@ -1710,17 +1726,33 @@ diff --git a/node_modules/react-native-health-connect/android/build/intermediate
 new file mode 100644
 index 0000000..d572316
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/dev/matinzd/healthconnect/permissions/AccessType.class differ
+diff --git a/node_modules/react-native-health-connect/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchExerciseRouteAccessRequestDialog$1.class b/node_modules/react-native-health-connect/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchExerciseRouteAccessRequestDialog$1.class
+new file mode 100644
+index 0000000..2474a3b
+Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchExerciseRouteAccessRequestDialog$1.class differ
+diff --git a/node_modules/react-native-health-connect/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchExerciseRouteAccessRequestDialog$2.class b/node_modules/react-native-health-connect/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchExerciseRouteAccessRequestDialog$2.class
+new file mode 100644
+index 0000000..73ce65e
+Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchExerciseRouteAccessRequestDialog$2.class differ
+diff --git a/node_modules/react-native-health-connect/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchPermissionsDialog$1.class b/node_modules/react-native-health-connect/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchPermissionsDialog$1.class
+new file mode 100644
+index 0000000..e62705b
+Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchPermissionsDialog$1.class differ
+diff --git a/node_modules/react-native-health-connect/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchPermissionsDialog$2.class b/node_modules/react-native-health-connect/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchPermissionsDialog$2.class
+new file mode 100644
+index 0000000..38c12a2
+Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchPermissionsDialog$2.class differ
 diff --git a/node_modules/react-native-health-connect/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$setPermissionDelegate$1$1.class b/node_modules/react-native-health-connect/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$setPermissionDelegate$1$1.class
 new file mode 100644
-index 0000000..441d596
+index 0000000..8057b67
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$setPermissionDelegate$1$1.class differ
 diff --git a/node_modules/react-native-health-connect/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$setPermissionDelegate$2$1.class b/node_modules/react-native-health-connect/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$setPermissionDelegate$2$1.class
 new file mode 100644
-index 0000000..5d4a353
+index 0000000..82d19a3
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$setPermissionDelegate$2$1.class differ
 diff --git a/node_modules/react-native-health-connect/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate.class b/node_modules/react-native-health-connect/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate.class
 new file mode 100644
-index 0000000..f9e712c
+index 0000000..f84e8eb
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate.class differ
 diff --git a/node_modules/react-native-health-connect/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/dev/matinzd/healthconnect/permissions/PermissionUtils$Companion$getGrantedPermissions$1.class b/node_modules/react-native-health-connect/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/dev/matinzd/healthconnect/permissions/PermissionUtils$Companion$getGrantedPermissions$1.class
 new file mode 100644
@@ -1968,7 +2000,7 @@ index 0000000..b8f791f
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/intermediates/runtime_library_classes_dir/debug/bundleLibRuntimeToDirDebug/dev/matinzd/healthconnect/utils/InvalidVelocity.class differ
 diff --git a/node_modules/react-native-health-connect/android/build/intermediates/runtime_library_classes_jar/debug/bundleLibRuntimeToJarDebug/classes.jar b/node_modules/react-native-health-connect/android/build/intermediates/runtime_library_classes_jar/debug/bundleLibRuntimeToJarDebug/classes.jar
 new file mode 100644
-index 0000000..e2089c1
+index 0000000..829702a
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/intermediates/runtime_library_classes_jar/debug/bundleLibRuntimeToJarDebug/classes.jar differ
 diff --git a/node_modules/react-native-health-connect/android/build/intermediates/symbol_list_with_package_name/debug/generateDebugRFile/package-aware-r.txt b/node_modules/react-native-health-connect/android/build/intermediates/symbol_list_with_package_name/debug/generateDebugRFile/package-aware-r.txt
 new file mode 100644
@@ -1979,7 +2011,7 @@ index 0000000..1601790
 +dev.matinzd.healthconnect
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab
 new file mode 100644
-index 0000000..38418eb
+index 0000000..8996b60
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.keystream b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.keystream
 new file mode 100644
@@ -1995,7 +2027,7 @@ index 0000000..31ed51e
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.len differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.values.at b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.values.at
 new file mode 100644
-index 0000000..8283833
+index 0000000..7cca452
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.values.at differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab_i b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab_i
 new file mode 100644
@@ -2007,7 +2039,7 @@ index 0000000..131e265
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/inputs/source-to-output.tab_i.len differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab
 new file mode 100644
-index 0000000..c4a00fb
+index 0000000..d248a76
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.keystream b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.keystream
 new file mode 100644
@@ -2023,7 +2055,7 @@ index 0000000..86c9c3e
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.len differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.values.at b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.values.at
 new file mode 100644
-index 0000000..de5c887
+index 0000000..905bf1b
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab.values.at differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab_i b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab_i
 new file mode 100644
@@ -2035,7 +2067,7 @@ index 0000000..131e265
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-attributes.tab_i.len differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab
 new file mode 100644
-index 0000000..0a650ef
+index 0000000..49a2f3c
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.keystream b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.keystream
 new file mode 100644
@@ -2051,7 +2083,7 @@ index 0000000..86c9c3e
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.len differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.values.at b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.values.at
 new file mode 100644
-index 0000000..892e001
+index 0000000..23b7aa9
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab.values.at differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab_i b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/class-fq-name-to-source.tab_i
 new file mode 100644
@@ -2091,27 +2123,27 @@ index 0000000..131e265
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/constants.tab_i.len differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab
 new file mode 100644
-index 0000000..ffdfe6d
+index 0000000..8019bdf
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.keystream b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.keystream
 new file mode 100644
-index 0000000..740e096
+index 0000000..7e2b3e1
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.keystream differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.keystream.len b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.keystream.len
 new file mode 100644
-index 0000000..4f61a48
+index 0000000..deba178
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.keystream.len differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.len b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.len
 new file mode 100644
-index 0000000..bb3f6cb
+index 0000000..499fd61
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.len differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.values.at b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.values.at
 new file mode 100644
-index 0000000..026cc72
+index 0000000..6dc3ce5
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab.values.at differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab_i b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab_i
 new file mode 100644
-index 0000000..28aa907
+index 0000000..f53f96b
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab_i differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab_i.len b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/internal-name-to-source.tab_i.len
 new file mode 100644
@@ -2147,7 +2179,7 @@ index 0000000..131e265
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/package-parts.tab_i.len differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab
 new file mode 100644
-index 0000000..089e739
+index 0000000..4185b6d
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.keystream b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.keystream
 new file mode 100644
@@ -2167,7 +2199,7 @@ index 0000000..03eb75e
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.values differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.values.at b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.values.at
 new file mode 100644
-index 0000000..c62ac54
+index 0000000..984769a
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.values.at differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.values.s b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab.values.s
 new file mode 100644
@@ -2187,7 +2219,7 @@ index 0000000..131e265
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/proto.tab_i.len differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab
 new file mode 100644
-index 0000000..8cab40e
+index 0000000..d258f5a
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.keystream b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.keystream
 new file mode 100644
@@ -2203,7 +2235,7 @@ index 0000000..31ed51e
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.len differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.values.at b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.values.at
 new file mode 100644
-index 0000000..dd2fbab
+index 0000000..a730302
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab.values.at differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab_i b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/source-to-classes.tab_i
 new file mode 100644
@@ -2271,16 +2303,16 @@ index 0000000..131e265
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/jvm/kotlin/supertypes.tab_i.len differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/counters.tab b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/counters.tab
 new file mode 100644
-index 0000000..1c94f4d
+index 0000000..b55f912
 --- /dev/null
 +++ b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/counters.tab
 @@ -0,0 +1,2 @@
-+49
++50
 +0
 \ No newline at end of file
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab
 new file mode 100644
-index 0000000..16e5155
+index 0000000..be56b32
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.keystream b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.keystream
 new file mode 100644
@@ -2296,7 +2328,7 @@ index 0000000..31ed51e
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.len differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.values.at b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.values.at
 new file mode 100644
-index 0000000..d69b273
+index 0000000..e1e0ed2
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab.values.at differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab_i b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab_i
 new file mode 100644
@@ -2308,27 +2340,27 @@ index 0000000..131e265
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/file-to-id.tab_i.len differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab
 new file mode 100644
-index 0000000..afe4449
+index 0000000..0721f22
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.keystream b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.keystream
 new file mode 100644
-index 0000000..5ecc69a
+index 0000000..845a3a2
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.keystream differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.keystream.len b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.keystream.len
 new file mode 100644
-index 0000000..1c209ae
+index 0000000..c4a5886
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.keystream.len differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.len b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.len
 new file mode 100644
-index 0000000..31ed51e
+index 0000000..48e9f9a
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.len differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.values.at b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.values.at
 new file mode 100644
-index 0000000..3b35c4a
+index 0000000..4afc230
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab.values.at differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab_i b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab_i
 new file mode 100644
-index 0000000..c49a939
+index 0000000..574f909
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab_i differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab_i.len b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab_i.len
 new file mode 100644
@@ -2336,27 +2368,39 @@ index 0000000..131e265
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/id-to-file.tab_i.len differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab
 new file mode 100644
-index 0000000..4dbf41c
+index 0000000..642eec2
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.keystream b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.keystream
 new file mode 100644
-index 0000000..15f1588
+index 0000000..d70a92a
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.keystream differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.keystream.len b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.keystream.len
 new file mode 100644
-index 0000000..0065cb2
+index 0000000..9f91447
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.keystream.len differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.len b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.len
 new file mode 100644
-index 0000000..ed7ed2e
+index 0000000..bc7ce81
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.len differ
+diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.values b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.values
+new file mode 100644
+index 0000000..f5facb8
+Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.values differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.values.at b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.values.at
 new file mode 100644
-index 0000000..c0d59d6
+index 0000000..aa2162c
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.values.at differ
+diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.values.s b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.values.s
+new file mode 100644
+index 0000000..80036e4
+--- /dev/null
++++ b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab.values.s
+@@ -0,0 +1 @@
++áZ
+\ No newline at end of file
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab_i b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab_i
 new file mode 100644
-index 0000000..96b709d
+index 0000000..e1ccb9e
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab_i differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab_i.len b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab_i.len
 new file mode 100644
@@ -2364,19 +2408,19 @@ index 0000000..131e265
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/caches-jvm/lookups/lookups.tab_i.len differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/last-build.bin b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/last-build.bin
 new file mode 100644
-index 0000000..ba60df8
+index 0000000..aaee275
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/cacheable/last-build.bin differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/classpath-snapshot/shrunk-classpath-snapshot.bin b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/classpath-snapshot/shrunk-classpath-snapshot.bin
 new file mode 100644
-index 0000000..1e31d79
+index 0000000..7eaf635
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/classpath-snapshot/shrunk-classpath-snapshot.bin differ
 diff --git a/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/local-state/build-history.bin b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/local-state/build-history.bin
 new file mode 100644
-index 0000000..032276a
+index 0000000..62a65fe
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/kotlin/compileDebugKotlin/local-state/build-history.bin differ
 diff --git a/node_modules/react-native-health-connect/android/build/outputs/aar/react-native-health-connect-debug.aar b/node_modules/react-native-health-connect/android/build/outputs/aar/react-native-health-connect-debug.aar
 new file mode 100644
-index 0000000..8102184
+index 0000000..6386976
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/outputs/aar/react-native-health-connect-debug.aar differ
 diff --git a/node_modules/react-native-health-connect/android/build/outputs/logs/manifest-merger-debug-report.txt b/node_modules/react-native-health-connect/android/build/outputs/logs/manifest-merger-debug-report.txt
 new file mode 100644
@@ -2491,17 +2535,33 @@ diff --git a/node_modules/react-native-health-connect/android/build/tmp/kotlin-c
 new file mode 100644
 index 0000000..d572316
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/tmp/kotlin-classes/debug/dev/matinzd/healthconnect/permissions/AccessType.class differ
+diff --git a/node_modules/react-native-health-connect/android/build/tmp/kotlin-classes/debug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchExerciseRouteAccessRequestDialog$1.class b/node_modules/react-native-health-connect/android/build/tmp/kotlin-classes/debug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchExerciseRouteAccessRequestDialog$1.class
+new file mode 100644
+index 0000000..2474a3b
+Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/tmp/kotlin-classes/debug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchExerciseRouteAccessRequestDialog$1.class differ
+diff --git a/node_modules/react-native-health-connect/android/build/tmp/kotlin-classes/debug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchExerciseRouteAccessRequestDialog$2.class b/node_modules/react-native-health-connect/android/build/tmp/kotlin-classes/debug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchExerciseRouteAccessRequestDialog$2.class
+new file mode 100644
+index 0000000..73ce65e
+Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/tmp/kotlin-classes/debug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchExerciseRouteAccessRequestDialog$2.class differ
+diff --git a/node_modules/react-native-health-connect/android/build/tmp/kotlin-classes/debug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchPermissionsDialog$1.class b/node_modules/react-native-health-connect/android/build/tmp/kotlin-classes/debug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchPermissionsDialog$1.class
+new file mode 100644
+index 0000000..e62705b
+Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/tmp/kotlin-classes/debug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchPermissionsDialog$1.class differ
+diff --git a/node_modules/react-native-health-connect/android/build/tmp/kotlin-classes/debug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchPermissionsDialog$2.class b/node_modules/react-native-health-connect/android/build/tmp/kotlin-classes/debug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchPermissionsDialog$2.class
+new file mode 100644
+index 0000000..38c12a2
+Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/tmp/kotlin-classes/debug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$launchPermissionsDialog$2.class differ
 diff --git a/node_modules/react-native-health-connect/android/build/tmp/kotlin-classes/debug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$setPermissionDelegate$1$1.class b/node_modules/react-native-health-connect/android/build/tmp/kotlin-classes/debug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$setPermissionDelegate$1$1.class
 new file mode 100644
-index 0000000..441d596
+index 0000000..8057b67
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/tmp/kotlin-classes/debug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$setPermissionDelegate$1$1.class differ
 diff --git a/node_modules/react-native-health-connect/android/build/tmp/kotlin-classes/debug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$setPermissionDelegate$2$1.class b/node_modules/react-native-health-connect/android/build/tmp/kotlin-classes/debug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$setPermissionDelegate$2$1.class
 new file mode 100644
-index 0000000..5d4a353
+index 0000000..82d19a3
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/tmp/kotlin-classes/debug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate$setPermissionDelegate$2$1.class differ
 diff --git a/node_modules/react-native-health-connect/android/build/tmp/kotlin-classes/debug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate.class b/node_modules/react-native-health-connect/android/build/tmp/kotlin-classes/debug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate.class
 new file mode 100644
-index 0000000..f9e712c
+index 0000000..f84e8eb
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/tmp/kotlin-classes/debug/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate.class differ
 diff --git a/node_modules/react-native-health-connect/android/build/tmp/kotlin-classes/debug/dev/matinzd/healthconnect/permissions/PermissionUtils$Companion$getGrantedPermissions$1.class b/node_modules/react-native-health-connect/android/build/tmp/kotlin-classes/debug/dev/matinzd/healthconnect/permissions/PermissionUtils$Companion$getGrantedPermissions$1.class
 new file mode 100644
@@ -2748,10 +2808,17 @@ new file mode 100644
 index 0000000..b8f791f
 Binary files /dev/null and b/node_modules/react-native-health-connect/android/build/tmp/kotlin-classes/debug/dev/matinzd/healthconnect/utils/InvalidVelocity.class differ
 diff --git a/node_modules/react-native-health-connect/android/src/main/java/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate.kt b/node_modules/react-native-health-connect/android/src/main/java/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate.kt
-index 5ec3641..e82523b 100644
+index 5ec3641..4786bee 100644
 --- a/node_modules/react-native-health-connect/android/src/main/java/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate.kt
 +++ b/node_modules/react-native-health-connect/android/src/main/java/dev/matinzd/healthconnect/permissions/HealthConnectPermissionDelegate.kt
-@@ -10,6 +10,7 @@ import kotlinx.coroutines.Dispatchers
+@@ -1,5 +1,6 @@
+ package dev.matinzd.healthconnect.permissions
+ 
++import android.os.Build
+ import androidx.activity.ComponentActivity
+ import androidx.activity.result.ActivityResultLauncher
+ import androidx.health.connect.client.PermissionController
+@@ -10,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
  import kotlinx.coroutines.cancel
  import kotlinx.coroutines.channels.Channel
  import kotlinx.coroutines.launch
@@ -2759,7 +2826,21 @@ index 5ec3641..e82523b 100644
  
  object HealthConnectPermissionDelegate {
    private val coroutineScope = CoroutineScope(Dispatchers.IO)
-@@ -42,12 +43,16 @@ object HealthConnectPermissionDelegate {
+@@ -23,7 +25,12 @@ object HealthConnectPermissionDelegate {
+     activity: ComponentActivity,
+     providerPackageName: String = "com.google.android.apps.healthdata"
+   ) {
+-    val contract = PermissionController.createRequestPermissionResultContract(providerPackageName)
++    // Android 14+ has Health Connect built into the OS â€” no provider package needed
++    val contract = if (Build.VERSION.SDK_INT >= 34) {
++      PermissionController.createRequestPermissionResultContract()
++    } else {
++      PermissionController.createRequestPermissionResultContract(providerPackageName)
++    }
+     val exerciseRouteRequestContract = ExerciseRouteRequestContract()
+ 
+     requestPermission = activity.registerForActivityResult(contract) {
+@@ -42,12 +49,16 @@ object HealthConnectPermissionDelegate {
    }
  
    suspend fun launchPermissionsDialog(permissions: Set<String>): Set<String> {

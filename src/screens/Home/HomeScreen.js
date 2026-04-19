@@ -64,13 +64,14 @@ export default function HomeScreen({ navigation }) {
     try {
       const granted = await requestHealthPermissions();
       if (granted && granted.length > 0) {
+        hcWaiting.current = false;
         setHcAvailable(true);
         setHcNeedsPermission(false);
         const data = await getDashboardData();
         setHcData(data);
-      } else {
-        hcWaiting.current = false;
       }
+      // else: settings was opened as fallback — hcWaiting stays true
+      // AppState listener handles permissions check on resume
     } catch (e) {
       hcWaiting.current = false;
       Alert.alert('Health Connect', e.message || 'Could not request permissions');
