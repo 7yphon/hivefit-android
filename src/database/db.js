@@ -5,16 +5,18 @@ let _db = null;
 
 export async function getDb() {
   if (_db) return _db;
-  _db = await SQLite.openDatabaseAsync('hivefit.db');
-  await _db.execAsync('PRAGMA journal_mode=WAL; PRAGMA foreign_keys=ON;');
+  _db = SQLite.openDatabaseSync('hivefit.db');
+  await _db.execAsync('PRAGMA journal_mode=WAL;');
+  await _db.execAsync('PRAGMA foreign_keys=ON;');
   await initSchema();
   return _db;
 }
 
 async function initSchema() {
-  const statements = SCHEMA.split(';').map(s => s.trim()).filter(Boolean);
-  for (const stmt of statements) {
-    await _db.execAsync(stmt + ';');
+  // Run each CREATE TABLE individually for clearer error isolation
+  const tables = SCHEMA.split(/;\s*\n/).map(s => s.trim()).filter(s => s.startsWith('CREATE'));
+  for (const stmt of tables) {
+    await _db.execAsync(stmt.endsWith(';') ? stmt : stmt + ';');
   }
   await seedExercises();
   await ensureDefaultUser();

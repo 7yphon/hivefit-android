@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, Text, ScrollView } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import AppNavigator from './src/navigation/AppNavigator';
 import { getDb } from './src/database/db';
@@ -8,16 +8,31 @@ import { colors } from './src/theme';
 
 export default function App() {
   const [ready, setReady] = useState(false);
+  const [error, setError] = useState(null);
   const { loadUsers } = useUserStore();
 
   useEffect(() => {
     async function init() {
-      await getDb();
-      await loadUsers();
-      setReady(true);
+      try {
+        await getDb();
+        await loadUsers();
+        setReady(true);
+      } catch (e) {
+        console.error('Init failed:', e);
+        setError(String(e));
+      }
     }
     init();
   }, []);
+
+  if (error) {
+    return (
+      <ScrollView style={{ flex: 1, backgroundColor: '#0f0f0f', padding: 20 }}>
+        <Text style={{ color: '#f04040', fontSize: 16, fontWeight: 'bold', marginTop: 60 }}>Init Error</Text>
+        <Text style={{ color: '#f0f0f0', fontSize: 13, marginTop: 12 }}>{error}</Text>
+      </ScrollView>
+    );
+  }
 
   if (!ready) {
     return (

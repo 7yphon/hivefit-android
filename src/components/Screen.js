@@ -5,7 +5,7 @@ import { colors, spacing, font } from '../theme';
 
 export function Screen({ children, style }) {
   return (
-    <SafeAreaView style={[styles.safe, style]}>
+    <SafeAreaView edges={['top', 'left', 'right']} style={[styles.safe, style]}>
       <StatusBar barStyle="light-content" backgroundColor={colors.bg} />
       {children}
     </SafeAreaView>
