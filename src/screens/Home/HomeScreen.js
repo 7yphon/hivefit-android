@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Alert, AppState, View, Text, ScrollView, TouchableOpacity, ActivityIndicator, StyleSheet } from 'react-native';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { Alert, AppState, RefreshControl, View, Text, ScrollView, TouchableOpacity, ActivityIndicator, StyleSheet } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import { Screen, Card, Button } from '../../components/Screen';
 import { useUserStore } from '../../store/userStore';
 import { useWorkoutStore } from '../../store/workoutStore';
@@ -18,19 +19,25 @@ export default function HomeScreen({ navigation }) {
   const [hcAvailable, setHcAvailable] = useState(false);
   const [hcNeedsPermission, setHcNeedsPermission] = useState(false);
   const [hcRequesting, setHcRequesting] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const appState = useRef(AppState.currentState);
   const hcWaiting = useRef(false);
 
   useEffect(() => { loadUsers(); initHC(); }, []);
 
+  // Refresh HC data whenever app returns to foreground
   useEffect(() => {
     const sub = AppState.addEventListener('change', async (next) => {
-      if (appState.current.match(/inactive|background/) && next === 'active' && hcWaiting.current) {
-        hcWaiting.current = false;
-        const hasPerms = await checkHealthPermissions();
-        if (hasPerms) {
-          setHcAvailable(true);
-          setHcNeedsPermission(false);
+      if (appState.current.match(/inactive|background/) && next === 'active') {
+        if (hcWaiting.current) {
+          hcWaiting.current = false;
+          const hasPerms = await checkHealthPermissions();
+          if (hasPerms) {
+            setHcAvailable(true);
+            setHcNeedsPermission(false);
+          }
+        }
+        if (hcAvailableRef.current) {
           const data = await getDashboardData();
           setHcData(data);
         }
@@ -39,6 +46,15 @@ export default function HomeScreen({ navigation }) {
     });
     return () => sub.remove();
   }, []);
+
+  // Keep a ref so the AppState closure can read current hcAvailable
+  const hcAvailableRef = useRef(false);
+  useEffect(() => { hcAvailableRef.current = hcAvailable; }, [hcAvailable]);
+
+  // Reload local data whenever the Home tab is focused
+  useFocusEffect(useCallback(() => {
+    if (activeUser) loadData();
+  }, [activeUser]));
 
   useEffect(() => {
     if (!activeUser) return;
@@ -89,6 +105,19 @@ export default function HomeScreen({ navigation }) {
     setLatestBody(body[0] || null);
   }
 
+  async function onRefresh() {
+    setRefreshing(true);
+    try {
+      if (activeUser) await loadData();
+      if (hcAvailableRef.current) {
+        const data = await getDashboardData();
+        setHcData(data);
+      }
+    } finally {
+      setRefreshing(false);
+    }
+  }
+
   const thisWeek = recentWorkouts.filter(w => {
     const diff = (Date.now() - new Date(w.started_at)) / 86400000;
     return diff <= 7 && w.finished_at;
@@ -103,7 +132,7 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <Screen>
-      <ScrollView contentContainerStyle={styles.scroll}>
+      <ScrollView contentContainerStyle={styles.scroll} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={colors.primary} />}>
         {/* Header */}
         <View style={styles.headerRow}>
           <View>
