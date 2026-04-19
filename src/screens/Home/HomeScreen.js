@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { AppState, View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { Alert, AppState, View, Text, ScrollView, TouchableOpacity, ActivityIndicator, StyleSheet } from 'react-native';
 import { Screen, Card, Button } from '../../components/Screen';
 import { useUserStore } from '../../store/userStore';
 import { useWorkoutStore } from '../../store/workoutStore';
@@ -17,6 +17,7 @@ export default function HomeScreen({ navigation }) {
   const [hcData, setHcData] = useState(null);
   const [hcAvailable, setHcAvailable] = useState(false);
   const [hcNeedsPermission, setHcNeedsPermission] = useState(false);
+  const [hcRequesting, setHcRequesting] = useState(false);
   const appState = useRef(AppState.currentState);
   const hcWaiting = useRef(false);
 
@@ -58,8 +59,24 @@ export default function HomeScreen({ navigation }) {
   }
 
   async function handleGrantHC() {
+    setHcRequesting(true);
     hcWaiting.current = true;
-    await requestHealthPermissions();
+    try {
+      const granted = await requestHealthPermissions();
+      if (granted && granted.length > 0) {
+        setHcAvailable(true);
+        setHcNeedsPermission(false);
+        const data = await getDashboardData();
+        setHcData(data);
+      } else {
+        hcWaiting.current = false;
+      }
+    } catch (e) {
+      hcWaiting.current = false;
+      Alert.alert('Health Connect', e.message || 'Could not request permissions');
+    } finally {
+      setHcRequesting(false);
+    }
   }
 
   async function loadData() {
@@ -128,8 +145,11 @@ export default function HomeScreen({ navigation }) {
 
         {/* Health Connect — needs permission */}
         {hcNeedsPermission && (
-          <TouchableOpacity onPress={handleGrantHC} style={styles.hcConnectBtn}>
-            <Text style={styles.hcConnectText}>🏃 Connect Samsung Health</Text>
+          <TouchableOpacity onPress={handleGrantHC} disabled={hcRequesting} style={styles.hcConnectBtn}>
+            {hcRequesting
+              ? <ActivityIndicator color={colors.textSub} size="small" />
+              : <Text style={styles.hcConnectText}>🏃 Connect Samsung Health</Text>
+            }
           </TouchableOpacity>
         )}
 

@@ -18,16 +18,17 @@ const PERMISSIONS = [
   { accessType: 'read', recordType: 'BodyFat' },
 ];
 
-let _initialized = false;
+async function ensureInitialized() {
+  const status = await getSdkStatus();
+  if (status !== SdkAvailabilityStatus.SDK_AVAILABLE) {
+    throw new Error('Health Connect not available on this device');
+  }
+  await initialize();
+}
 
 export async function initHealthConnect() {
   try {
-    const status = await getSdkStatus();
-    if (status !== SdkAvailabilityStatus.SDK_AVAILABLE) {
-      return { available: false, reason: 'Health Connect not available' };
-    }
-    await initialize();
-    _initialized = true;
+    await ensureInitialized();
     return { available: true };
   } catch (e) {
     return { available: false, reason: e.message };
@@ -35,24 +36,16 @@ export async function initHealthConnect() {
 }
 
 // Shows the Health Connect permission dialog. Call only from a user interaction.
+// Returns the array of granted permissions (may be empty if denied).
 export async function requestHealthPermissions() {
-  if (!_initialized) await initHealthConnect();
-  try {
-    return await requestPermission(PERMISSIONS);
-  } catch (e) {
-    console.warn('[HealthConnect] requestPermission failed, falling back to settings:', e.message);
-    openHealthConnectSettings();
-    return [];
-  }
+  await ensureInitialized();
+  return requestPermission(PERMISSIONS);
 }
 
 // Safe to call anytime — checks already-granted permissions without a dialog
 export async function checkHealthPermissions() {
-  if (!_initialized) {
-    const r = await initHealthConnect();
-    if (!r.available) return false;
-  }
   try {
+    await ensureInitialized();
     const granted = await getGrantedPermissions();
     return granted.length > 0;
   } catch {
