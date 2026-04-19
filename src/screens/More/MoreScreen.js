@@ -1,7 +1,8 @@
-import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { AppState, View, Text, ScrollView, TouchableOpacity, ActivityIndicator, StyleSheet } from 'react-native';
 import { Screen, Header } from '../../components/Screen';
 import { useUserStore } from '../../store/userStore';
+import { checkHealthPermissions, requestHealthPermissions } from '../../services/healthConnect';
 import { colors, spacing, font } from '../../theme';
 
 const MENU = [
@@ -11,6 +12,42 @@ const MENU = [
 
 export default function MoreScreen({ navigation }) {
   const { activeUser } = useUserStore();
+  const [hcGranted, setHcGranted] = useState(false);
+  const [hcRequesting, setHcRequesting] = useState(false);
+  const appState = useRef(AppState.currentState);
+  const hcWaiting = useRef(false);
+
+  useEffect(() => {
+    checkHealthPermissions().then(setHcGranted);
+  }, []);
+
+  useEffect(() => {
+    const sub = AppState.addEventListener('change', async (next) => {
+      if (appState.current.match(/inactive|background/) && next === 'active' && hcWaiting.current) {
+        hcWaiting.current = false;
+        const granted = await checkHealthPermissions();
+        setHcGranted(granted);
+      }
+      appState.current = next;
+    });
+    return () => sub.remove();
+  }, []);
+
+  async function handleReAuthHC() {
+    setHcRequesting(true);
+    hcWaiting.current = true;
+    try {
+      const result = await requestHealthPermissions();
+      if (result && result.length > 0) {
+        hcWaiting.current = false;
+        setHcGranted(true);
+      }
+    } catch {
+      hcWaiting.current = false;
+    } finally {
+      setHcRequesting(false);
+    }
+  }
 
   return (
     <Screen>
@@ -33,6 +70,19 @@ export default function MoreScreen({ navigation }) {
             <Text style={styles.arrow}>›</Text>
           </TouchableOpacity>
         )}
+
+        {/* Health Connect */}
+        <TouchableOpacity style={styles.row} onPress={handleReAuthHC} disabled={hcRequesting}>
+          <Text style={styles.icon}>🏥</Text>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.label}>Health Connect</Text>
+            <Text style={styles.rowSub}>{hcGranted ? 'Permissions granted' : 'Tap to connect / re-authorise'}</Text>
+          </View>
+          {hcRequesting
+            ? <ActivityIndicator size="small" color={colors.textSub} />
+            : <Text style={[styles.rowSub, { color: hcGranted ? colors.primary : colors.textSub }]}>{hcGranted ? '✓' : '›'}</Text>
+          }
+        </TouchableOpacity>
 
         {MENU.map(item => (
           <TouchableOpacity
@@ -77,7 +127,8 @@ const styles = StyleSheet.create({
     padding: spacing.m, marginBottom: spacing.s,
   },
   icon: { fontSize: 20, marginRight: spacing.m },
-  label: { flex: 1, color: colors.text, fontSize: font.size.m },
+  label: { color: colors.text, fontSize: font.size.m },
+  rowSub: { color: colors.textSub, fontSize: font.size.xs, marginTop: 1 },
   arrow: { color: colors.textSub, fontSize: 22 },
   version: { color: colors.textMuted, fontSize: font.size.xs, textAlign: 'center', marginTop: spacing.xl },
 });

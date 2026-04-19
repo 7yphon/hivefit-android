@@ -7,10 +7,12 @@
   <uses-permission android:name="android.permission.health.READ_STEPS"/>
   <uses-permission android:name="android.permission.health.READ_DISTANCE"/>
   <uses-permission android:name="android.permission.health.READ_HEART_RATE"/>
+  <uses-permission android:name="android.permission.health.READ_TOTAL_CALORIES_BURNED"/>
   <uses-permission android:name="android.permission.health.READ_ACTIVE_CALORIES_BURNED"/>
   <uses-permission android:name="android.permission.health.READ_EXERCISE"/>
   <uses-permission android:name="android.permission.health.READ_WEIGHT"/>
   <uses-permission android:name="android.permission.health.READ_BODY_FAT"/>
+  <uses-permission android:name="android.permission.health.READ_HEALTH_DATA_HISTORY"/>
 
   <queries>
     <intent>
@@ -18,7 +20,6 @@
       <category android:name="android.intent.category.BROWSABLE" />
       <data android:scheme="https" />
     </intent>
-    <!-- Health Connect availability check -->
     <package android:name="com.google.android.apps.healthdata" />
     <intent>
       <action android:name="androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE" />
@@ -31,22 +32,15 @@
         <action android:name="android.intent.action.MAIN"/>
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
-      <!-- Android 13 / Health Connect standalone app -->
+      <!-- Android 13: Health Connect standalone app -->
       <intent-filter>
         <action android:name="androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE"/>
       </intent-filter>
-    </activity>
-
-    <!-- Android 14+: required for app to appear in Health Connect connected apps list -->
-    <activity-alias
-      android:name="ViewPermissionUsageActivity"
-      android:exported="true"
-      android:targetActivity=".MainActivity"
-      android:permission="android.permission.START_VIEW_PERMISSION_USAGE">
+      <!-- Android 14+: Health Connect integrated into OS -->
       <intent-filter>
         <action android:name="android.intent.action.VIEW_PERMISSION_USAGE"/>
         <category android:name="android.intent.category.HEALTH_PERMISSIONS"/>
       </intent-filter>
-    </activity-alias>
+    </activity>
   </application>
 </manifest>

@@ -12,6 +12,7 @@ const PERMISSIONS = [
   { accessType: 'read', recordType: 'Steps' },
   { accessType: 'read', recordType: 'Distance' },
   { accessType: 'read', recordType: 'HeartRate' },
+  { accessType: 'read', recordType: 'TotalCaloriesBurned' },
   { accessType: 'read', recordType: 'ActiveCaloriesBurned' },
   { accessType: 'read', recordType: 'ExerciseSession' },
   { accessType: 'read', recordType: 'Weight' },
@@ -36,14 +37,17 @@ export async function initHealthConnect() {
 }
 
 // On Android 14+ requestPermission returns empty immediately (platform behaviour).
-// Falls back to openHealthConnectSettings; AppState listener handles resume.
+// Falls back to HC settings; AppState listener handles permission check on resume.
 export async function requestHealthPermissions() {
   await ensureInitialized();
-  const result = await requestPermission(PERMISSIONS);
-  if (!result || result.length === 0) {
-    await openHealthConnectSettings();
+  let result = [];
+  try {
+    result = await requestPermission(PERMISSIONS) || [];
+  } catch {}
+  if (result.length === 0) {
+    openHealthConnectSettings();
   }
-  return result || [];
+  return result;
 }
 
 // Safe to call anytime — checks already-granted permissions without a dialog
@@ -77,8 +81,11 @@ export async function getTodaySteps() {
 
 export async function getTodayCalories() {
   try {
-    const { records } = await readRecords('ActiveCaloriesBurned', { timeRangeFilter: timeRange(1) });
-    return Math.round(records.reduce((sum, r) => sum + (r.energy?.inKilocalories || 0), 0));
+    const { records } = await readRecords('TotalCaloriesBurned', { timeRangeFilter: timeRange(1) });
+    if (records.length) return Math.round(records.reduce((sum, r) => sum + (r.energy?.inKilocalories || 0), 0));
+    // Fallback to active calories if total not available
+    const { records: active } = await readRecords('ActiveCaloriesBurned', { timeRangeFilter: timeRange(1) });
+    return Math.round(active.reduce((sum, r) => sum + (r.energy?.inKilocalories || 0), 0));
   } catch { return null; }
 }
 
@@ -138,5 +145,6 @@ export async function getDashboardData() {
     getTodayDistance(),
     getLatestHeartRate(),
   ]);
+
   return { steps, calories, distance, heartRate };
 }
