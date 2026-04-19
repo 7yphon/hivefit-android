@@ -1,5 +1,6 @@
 import {
   initialize,
+  requestPermission,
   openHealthConnectSettings,
   getGrantedPermissions,
   readRecords,
@@ -33,11 +34,16 @@ export async function initHealthConnect() {
   }
 }
 
-// Opens Health Connect settings so user can grant permissions manually.
-// Call only from a user interaction. After user returns to app, call checkHealthPermissions().
+// Shows the Health Connect permission dialog. Call only from a user interaction.
 export async function requestHealthPermissions() {
   if (!_initialized) await initHealthConnect();
-  openHealthConnectSettings();
+  try {
+    return await requestPermission(PERMISSIONS);
+  } catch (e) {
+    console.warn('[HealthConnect] requestPermission failed, falling back to settings:', e.message);
+    openHealthConnectSettings();
+    return [];
+  }
 }
 
 // Safe to call anytime — checks already-granted permissions without a dialog
