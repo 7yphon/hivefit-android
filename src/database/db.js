@@ -1,43 +1,48 @@
 import * as SQLite from 'expo-sqlite';
 import { SCHEMA, SEED_EXERCISES } from './schema';
 
-let _db = null;
+let _initPromise = null;
 
-export async function getDb() {
-  if (_db) return _db;
-  _db = SQLite.openDatabaseSync('hivefit.db');
-  await _db.execAsync('PRAGMA journal_mode=WAL;');
-  await _db.execAsync('PRAGMA foreign_keys=ON;');
-  await initSchema();
-  return _db;
-}
-
-async function initSchema() {
-  // Run each CREATE TABLE individually for clearer error isolation
-  const tables = SCHEMA.split(/;\s*\n/).map(s => s.trim()).filter(s => s.startsWith('CREATE'));
-  for (const stmt of tables) {
-    await _db.execAsync(stmt.endsWith(';') ? stmt : stmt + ';');
+export function getDb() {
+  if (!_initPromise) {
+    _initPromise = (async () => {
+      const db = SQLite.openDatabaseSync('hivefit.db');
+      await db.execAsync('PRAGMA journal_mode=WAL;');
+      await db.execAsync('PRAGMA foreign_keys=ON;');
+      await initSchema(db);
+      return db;
+    })();
   }
-  await seedExercises();
-  await ensureDefaultUser();
+  return _initPromise;
 }
 
-async function seedExercises() {
-  const count = await _db.getFirstAsync('SELECT COUNT(*) as n FROM exercises WHERE is_custom=0');
+async function initSchema(db) {
+  await db.withTransactionAsync(async () => {
+    const tables = SCHEMA.split(/;\s*\n/).map(s => s.trim()).filter(s => s.startsWith('CREATE'));
+    for (const stmt of tables) {
+      await db.execAsync(stmt.endsWith(';') ? stmt : stmt + ';');
+    }
+  });
+  await seedExercises(db);
+  await ensureDefaultUser(db);
+}
+
+async function seedExercises(db) {
+  const count = await db.getFirstAsync('SELECT COUNT(*) as n FROM exercises WHERE is_custom=0');
   if (count.n > 0) return;
   for (const ex of SEED_EXERCISES) {
-    await _db.runAsync(
+    await db.runAsync(
       'INSERT INTO exercises (name,category,muscle_groups,equipment,is_custom,youtube_query) VALUES (?,?,?,?,0,?)',
       [ex.name, ex.category, ex.muscle_groups || '', ex.equipment || '', ex.youtube_query || '']
     );
   }
 }
 
-async function ensureDefaultUser() {
-  const count = await _db.getFirstAsync('SELECT COUNT(*) as n FROM users');
+async function ensureDefaultUser(db) {
+  const count = await db.getFirstAsync('SELECT COUNT(*) as n FROM users');
   if (count.n > 0) return;
-  await _db.runAsync(
-    "INSERT INTO users (name, avatar_color, is_active) VALUES ('Chris', '#c8f03c', 1)"
+  await db.runAsync(
+    "INSERT INTO users (name, avatar_color, is_active) VALUES ('Chris', '#f59e0b', 1)"
   );
 }
 
@@ -62,13 +67,13 @@ export async function upsertUser(user) {
   const db = await getDb();
   if (user.id) {
     await db.runAsync(
-      'UPDATE users SET name=?,avatar_color=?,openhive_url=?,openhive_username=?,openhive_token=? WHERE id=?',
-      [user.name, user.avatar_color, user.openhive_url, user.openhive_username, user.openhive_token, user.id]
+      'UPDATE users SET name=?,avatar_color=?,openhive_url=?,openhive_username=?,openhive_token=NULL WHERE id=?',
+      [user.name, user.avatar_color, user.openhive_url ?? null, user.openhive_username ?? null, user.id]
     );
   } else {
     const r = await db.runAsync(
-      'INSERT INTO users (name,avatar_color,openhive_url,openhive_username,openhive_token,is_active) VALUES (?,?,?,?,?,0)',
-      [user.name, user.avatar_color || '#c8f03c', user.openhive_url || null, user.openhive_username || null, user.openhive_token || null]
+      'INSERT INTO users (name,avatar_color,openhive_url,openhive_username,is_active) VALUES (?,?,?,?,0)',
+      [user.name, user.avatar_color || '#f59e0b', user.openhive_url ?? null, user.openhive_username ?? null]
     );
     return r.lastInsertRowId;
   }
@@ -114,10 +119,22 @@ export async function finishWorkout(workoutId, notes = '') {
   );
 }
 
+export async function deleteWorkout(workoutId) {
+  const db = await getDb();
+  await db.withTransactionAsync(async () => {
+    await db.runAsync(
+      'DELETE FROM sets WHERE workout_exercise_id IN (SELECT id FROM workout_exercises WHERE workout_id=?)',
+      [workoutId]
+    );
+    await db.runAsync('DELETE FROM workout_exercises WHERE workout_id=?', [workoutId]);
+    await db.runAsync('DELETE FROM workouts WHERE id=?', [workoutId]);
+  });
+}
+
 export async function getWorkouts(userId, limit = 50) {
   const db = await getDb();
   return db.getAllAsync(
-    'SELECT * FROM workouts WHERE user_id=? ORDER BY started_at DESC LIMIT ?',
+    'SELECT * FROM workouts WHERE user_id=? AND finished_at IS NOT NULL ORDER BY started_at DESC LIMIT ?',
     [userId, limit]
   );
 }
@@ -125,19 +142,51 @@ export async function getWorkouts(userId, limit = 50) {
 export async function getWorkoutDetail(workoutId) {
   const db = await getDb();
   const workout = await db.getFirstAsync('SELECT * FROM workouts WHERE id=?', [workoutId]);
-  const exercises = await db.getAllAsync(
-    `SELECT we.*, e.name, e.category, e.equipment, e.muscle_groups
-     FROM workout_exercises we JOIN exercises e ON we.exercise_id=e.id
-     WHERE we.workout_id=? ORDER BY we.position`,
+  const rows = await db.getAllAsync(
+    `SELECT we.id as we_id, we.workout_id, we.exercise_id, we.position, we.notes as we_notes,
+            e.name, e.category, e.equipment, e.muscle_groups,
+            s.id as s_id, s.set_number, s.weight, s.reps, s.rpe,
+            s.duration_seconds, s.is_warmup, s.completed, s.completed_at
+     FROM workout_exercises we
+     JOIN exercises e ON we.exercise_id = e.id
+     LEFT JOIN sets s ON s.workout_exercise_id = we.id
+     WHERE we.workout_id = ?
+     ORDER BY we.position, s.set_number`,
     [workoutId]
   );
-  for (const ex of exercises) {
-    ex.sets = await db.getAllAsync(
-      'SELECT * FROM sets WHERE workout_exercise_id=? ORDER BY set_number',
-      [ex.id]
-    );
+
+  const exerciseMap = new Map();
+  for (const row of rows) {
+    if (!exerciseMap.has(row.we_id)) {
+      exerciseMap.set(row.we_id, {
+        id: row.we_id,
+        workout_id: row.workout_id,
+        exercise_id: row.exercise_id,
+        position: row.position,
+        notes: row.we_notes,
+        name: row.name,
+        category: row.category,
+        equipment: row.equipment,
+        muscle_groups: row.muscle_groups,
+        sets: [],
+      });
+    }
+    if (row.s_id != null) {
+      exerciseMap.get(row.we_id).sets.push({
+        id: row.s_id,
+        set_number: row.set_number,
+        weight: row.weight,
+        reps: row.reps,
+        rpe: row.rpe,
+        duration_seconds: row.duration_seconds,
+        is_warmup: row.is_warmup,
+        completed: row.completed,
+        completed_at: row.completed_at,
+      });
+    }
   }
-  return { workout, exercises };
+
+  return { workout, exercises: [...exerciseMap.values()] };
 }
 
 // ── Workout Exercises & Sets ──────────────────────────────────────────────────
@@ -154,8 +203,8 @@ export async function addSet(workoutExerciseId, setData) {
   const db = await getDb();
   const r = await db.runAsync(
     'INSERT INTO sets (workout_exercise_id,set_number,weight,reps,rpe,duration_seconds,is_warmup,completed) VALUES (?,?,?,?,?,?,?,0)',
-    [workoutExerciseId, setData.set_number, setData.weight || null,
-     setData.reps || null, setData.rpe || null, setData.duration_seconds || null,
+    [workoutExerciseId, setData.set_number, setData.weight ?? null,
+     setData.reps ?? null, setData.rpe ?? null, setData.duration_seconds ?? null,
      setData.is_warmup ? 1 : 0]
   );
   return r.lastInsertRowId;
@@ -220,7 +269,7 @@ export async function getExerciseHistory(userId, exerciseId, limit = 30) {
   return db.getAllAsync(
     `SELECT w.started_at, w.id as workout_id,
             MAX(s.weight) as best_weight,
-            MAX(s.weight * (1 + s.reps/30.0)) as est_1rm,
+            MAX(s.weight * (1 + s.reps / 30.0)) as est_1rm,
             SUM(s.weight * s.reps) as volume
      FROM workouts w
      JOIN workout_exercises we ON we.workout_id=w.id
@@ -237,9 +286,9 @@ export async function saveBodyMetrics(userId, metrics) {
   await db.runAsync(
     `INSERT INTO body_metrics (user_id,recorded_at,source,weight_kg,body_fat_pct,muscle_mass_kg,bmr,bmi,visceral_fat)
      VALUES (?,?,?,?,?,?,?,?,?)`,
-    [userId, metrics.recorded_at || new Date().toISOString(), metrics.source || 'manual',
-     metrics.weight_kg || null, metrics.body_fat_pct || null, metrics.muscle_mass_kg || null,
-     metrics.bmr || null, metrics.bmi || null, metrics.visceral_fat || null]
+    [userId, metrics.recorded_at ?? new Date().toISOString(), metrics.source ?? 'manual',
+     metrics.weight_kg ?? null, metrics.body_fat_pct ?? null, metrics.muscle_mass_kg ?? null,
+     metrics.bmr ?? null, metrics.bmi ?? null, metrics.visceral_fat ?? null]
   );
 }
 

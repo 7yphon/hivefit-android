@@ -1,7 +1,7 @@
-// Brzycki 1RM formula
+// Epley 1RM formula — consistent with stored PR values
 export function estimate1RM(weight, reps) {
   if (reps === 1) return weight;
-  return weight * (36 / (37 - reps));
+  return weight * (1 + reps / 30);
 }
 
 // Given a target weight and barbell weight, return plates per side

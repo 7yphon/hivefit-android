@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { Screen, Header } from '../../components/Screen';
+import { useUserStore } from '../../store/userStore';
 import { colors, spacing, font } from '../../theme';
 
 const MENU = [
@@ -9,10 +10,30 @@ const MENU = [
 ];
 
 export default function MoreScreen({ navigation }) {
+  const { activeUser } = useUserStore();
+
   return (
     <Screen>
       <Header title="More" />
       <ScrollView contentContainerStyle={styles.scroll}>
+
+        {/* Active profile card */}
+        {activeUser && (
+          <TouchableOpacity style={styles.profileCard} onPress={() => navigation.navigate('ProfileSettings')}>
+            <View style={[styles.avatar, { backgroundColor: activeUser.avatar_color || colors.primary }]}>
+              <Text style={styles.avatarText}>{activeUser.name[0]}</Text>
+            </View>
+            <View style={styles.profileInfo}>
+              <Text style={styles.profileName}>{activeUser.name}</Text>
+              {activeUser.openhive_username
+                ? <Text style={styles.profileSub}>OpenHive: {activeUser.openhive_username}</Text>
+                : <Text style={[styles.profileSub, { color: colors.textMuted }]}>Tap to link OpenHive account</Text>
+              }
+            </View>
+            <Text style={styles.arrow}>›</Text>
+          </TouchableOpacity>
+        )}
+
         {MENU.map(item => (
           <TouchableOpacity
             key={item.label}
@@ -39,6 +60,17 @@ export default function MoreScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   scroll: { padding: spacing.m, paddingBottom: 40 },
+  profileCard: {
+    flexDirection: 'row', alignItems: 'center',
+    backgroundColor: colors.card, borderRadius: 10,
+    padding: spacing.m, marginBottom: spacing.l,
+    borderWidth: 1, borderColor: colors.primary + '44',
+  },
+  avatar: { width: 44, height: 44, borderRadius: 22, alignItems: 'center', justifyContent: 'center', marginRight: spacing.m },
+  avatarText: { color: colors.bg, fontSize: font.size.l, fontWeight: font.weight.bold },
+  profileInfo: { flex: 1 },
+  profileName: { color: colors.primary, fontSize: font.size.l, fontWeight: font.weight.bold },
+  profileSub: { color: colors.textSub, fontSize: font.size.xs, marginTop: 2 },
   row: {
     flexDirection: 'row', alignItems: 'center',
     backgroundColor: colors.card, borderRadius: 10,

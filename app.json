@@ -1,8 +1,17 @@
 {
   "expo": {
-    "name": "hivefit",
+    "name": "HiveFit",
     "slug": "hivefit",
     "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/logo.png",
+    "android": {
+      "package": "com.hivefit",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/logo.png",
+        "backgroundColor": "#0c0900"
+      }
+    },
     "plugins": [
       "expo-sqlite"
     ]

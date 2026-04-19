@@ -76,7 +76,7 @@ export default function ActiveWorkoutScreen({ navigation }) {
     const e = parseFloat(rpe) || null;
     setEditSet(null);
     const isPR = await completeSet(weIndex, setIndex, w, r, e);
-    if (isPR && !exercises[weIndex]?.sets[setIndex]?.is_warmup) {
+    if (isPR) {
       const name = exercises[weIndex]?.name;
       setPrFlash(name);
       setTimeout(() => setPrFlash(null), 3000);
@@ -102,8 +102,12 @@ export default function ActiveWorkoutScreen({ navigation }) {
     Alert.alert('Finish Workout?', `${exercises.length} exercise${exercises.length !== 1 ? 's' : ''}, ${vol.length} sets`, [
       { text: 'Cancel' },
       { text: 'Finish', style: 'default', onPress: async () => {
-        await finishWorkout(workoutNotes);
-        navigation.navigate('WorkoutList');
+        try {
+          await finishWorkout(workoutNotes);
+          navigation.navigate('WorkoutList');
+        } catch (e) {
+          Alert.alert('Save Failed', e.message || 'Could not save workout. Try again.');
+        }
       }},
     ]);
   }
@@ -111,8 +115,8 @@ export default function ActiveWorkoutScreen({ navigation }) {
   function handleDiscard() {
     Alert.alert('Discard Workout?', 'All progress will be lost.', [
       { text: 'Keep going' },
-      { text: 'Discard', style: 'destructive', onPress: () => {
-        discardWorkout();
+      { text: 'Discard', style: 'destructive', onPress: async () => {
+        await discardWorkout();
         navigation.goBack();
       }},
     ]);

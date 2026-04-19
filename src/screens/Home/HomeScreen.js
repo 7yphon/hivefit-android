@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { AppState, View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { Screen, Card, Button } from '../../components/Screen';
 import { useUserStore } from '../../store/userStore';
 import { useWorkoutStore } from '../../store/workoutStore';
 import { getWorkouts, getPRs, getBodyMetrics } from '../../database/db';
+import { initHealthConnect, checkHealthPermissions, requestHealthPermissions, getDashboardData } from '../../services/healthConnect';
 import { colors, spacing, font } from '../../theme';
 
 export default function HomeScreen({ navigation }) {
@@ -13,13 +14,53 @@ export default function HomeScreen({ navigation }) {
   const [topPRs, setTopPRs] = useState([]);
   const [latestBody, setLatestBody] = useState(null);
   const [showUserPicker, setShowUserPicker] = useState(false);
+  const [hcData, setHcData] = useState(null);
+  const [hcAvailable, setHcAvailable] = useState(false);
+  const [hcNeedsPermission, setHcNeedsPermission] = useState(false);
+  const appState = useRef(AppState.currentState);
+  const hcWaiting = useRef(false);
 
-  useEffect(() => { loadUsers(); }, []);
+  useEffect(() => { loadUsers(); initHC(); }, []);
+
+  useEffect(() => {
+    const sub = AppState.addEventListener('change', async (next) => {
+      if (appState.current.match(/inactive|background/) && next === 'active' && hcWaiting.current) {
+        hcWaiting.current = false;
+        const hasPerms = await checkHealthPermissions();
+        if (hasPerms) {
+          setHcAvailable(true);
+          setHcNeedsPermission(false);
+          const data = await getDashboardData();
+          setHcData(data);
+        }
+      }
+      appState.current = next;
+    });
+    return () => sub.remove();
+  }, []);
 
   useEffect(() => {
     if (!activeUser) return;
     loadData();
   }, [activeUser]);
+
+  async function initHC() {
+    const result = await initHealthConnect();
+    if (!result.available) return;
+    const hasPerms = await checkHealthPermissions();
+    if (hasPerms) {
+      setHcAvailable(true);
+      const data = await getDashboardData();
+      setHcData(data);
+    } else {
+      setHcNeedsPermission(true);
+    }
+  }
+
+  async function handleGrantHC() {
+    hcWaiting.current = true;
+    await requestHealthPermissions();
+  }
 
   async function loadData() {
     const workouts = await getWorkouts(activeUser.id, 7);
@@ -85,6 +126,26 @@ export default function HomeScreen({ navigation }) {
           <StatBox label="Body fat" value={latestBody?.body_fat_pct ? `${latestBody.body_fat_pct.toFixed(1)}%` : '—'} unit="" />
         </View>
 
+        {/* Health Connect — needs permission */}
+        {hcNeedsPermission && (
+          <TouchableOpacity onPress={handleGrantHC} style={styles.hcConnectBtn}>
+            <Text style={styles.hcConnectText}>🏃 Connect Samsung Health</Text>
+          </TouchableOpacity>
+        )}
+
+        {/* Health Connect today */}
+        {hcAvailable && hcData && (
+          <Card style={styles.hcCard}>
+            <Text style={styles.hcTitle}>Today</Text>
+            <View style={styles.hcRow}>
+              <HCBox icon="👟" value={hcData.steps != null ? hcData.steps.toLocaleString() : '—'} label="steps" />
+              <HCBox icon="🔥" value={hcData.calories != null ? `${hcData.calories}` : '—'} label="kcal" />
+              <HCBox icon="📍" value={hcData.distance != null ? `${hcData.distance}` : '—'} label="km" />
+              <HCBox icon="❤️" value={hcData.heartRate != null ? `${hcData.heartRate}` : '—'} label="bpm" />
+            </View>
+          </Card>
+        )}
+
         {/* Start workout */}
         <Button
           label="+ Start Workout"
@@ -126,6 +187,16 @@ export default function HomeScreen({ navigation }) {
   );
 }
 
+function HCBox({ icon, value, label }) {
+  return (
+    <View style={styles.hcBox}>
+      <Text style={styles.hcIcon}>{icon}</Text>
+      <Text style={styles.hcValue}>{value}</Text>
+      <Text style={styles.hcLabel}>{label}</Text>
+    </View>
+  );
+}
+
 function StatBox({ label, value, unit }) {
   return (
     <View style={styles.statBox}>
@@ -162,6 +233,19 @@ const styles = StyleSheet.create({
   statUnit: { fontSize: font.size.s, color: colors.textSub, fontWeight: font.weight.regular },
   statLabel: { color: colors.textSub, fontSize: font.size.xs, marginTop: 2 },
   startBtn: { marginBottom: spacing.m },
+  hcConnectBtn: {
+    backgroundColor: colors.card, borderRadius: 10, padding: spacing.m,
+    marginBottom: spacing.m, alignItems: 'center',
+    borderWidth: 1, borderColor: colors.border,
+  },
+  hcConnectText: { color: colors.textSub, fontSize: font.size.s },
+  hcCard: { marginBottom: spacing.m, paddingBottom: spacing.s },
+  hcTitle: { color: colors.textSub, fontSize: font.size.xs, textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: spacing.s },
+  hcRow: { flexDirection: 'row', justifyContent: 'space-between' },
+  hcBox: { flex: 1, alignItems: 'center' },
+  hcIcon: { fontSize: 18, marginBottom: 2 },
+  hcValue: { color: colors.text, fontSize: font.size.m, fontWeight: font.weight.bold },
+  hcLabel: { color: colors.textMuted, fontSize: font.size.xs },
   sectionTitle: { color: colors.textSub, fontSize: font.size.s, fontWeight: font.weight.semibold, marginBottom: spacing.s, textTransform: 'uppercase', letterSpacing: 0.8 },
   prRow: { flexDirection: 'row', alignItems: 'center', paddingVertical: 6 },
   prExercise: { flex: 1, color: colors.text, fontSize: font.size.m },

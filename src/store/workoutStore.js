@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import {
-  startWorkout, finishWorkout, addExerciseToWorkout,
+  startWorkout, finishWorkout, deleteWorkout, addExerciseToWorkout,
   addSet, completeSet, deleteSet, checkAndSavePR,
 } from '../database/db';
 
@@ -92,7 +92,11 @@ export const useWorkoutStore = create((set, get) => ({
     return finished;
   },
 
-  discardWorkout: () => {
+  discardWorkout: async () => {
+    const { activeWorkout } = get();
+    if (activeWorkout?.id) {
+      await deleteWorkout(activeWorkout.id);
+    }
     set({ activeWorkout: null, exercises: [], isActive: false });
   },
 }));
