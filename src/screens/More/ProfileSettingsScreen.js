@@ -13,6 +13,10 @@ export default function ProfileSettingsScreen({ navigation }) {
   const [editUser, setEditUser] = useState(null);
   const [name, setName] = useState('');
   const [color, setColor] = useState(AVATAR_COLORS[0]);
+  const [heightCm, setHeightCm] = useState('');
+  const [sex, setSex] = useState('male');
+  const [birthYear, setBirthYear] = useState('');
+  const [targetWeight, setTargetWeight] = useState('');
 
   const [hiveUrl, setHiveUrl] = useState('');
   const [hiveUsername, setHiveUsername] = useState('');
@@ -27,6 +31,10 @@ export default function ProfileSettingsScreen({ navigation }) {
     setEditUser(user);
     setName(user.name);
     setColor(user.avatar_color || AVATAR_COLORS[0]);
+    setHeightCm(user.height_cm ? String(user.height_cm) : '');
+    setSex(user.sex || 'male');
+    setBirthYear(user.birth_year ? String(user.birth_year) : '');
+    setTargetWeight(user.target_weight_kg ? String(user.target_weight_kg) : '');
     setHiveUrl(user.openhive_url || '');
     setHiveUsername(user.openhive_username || '');
     setHivePassword('');
@@ -37,7 +45,15 @@ export default function ProfileSettingsScreen({ navigation }) {
 
   async function handleSave() {
     if (!name.trim()) return;
-    await upsertUser({ ...editUser, name: name.trim(), avatar_color: color });
+    await upsertUser({
+      ...editUser,
+      name: name.trim(),
+      avatar_color: color,
+      height_cm: heightCm ? parseFloat(heightCm) : null,
+      sex,
+      birth_year: birthYear ? parseInt(birthYear) : null,
+      target_weight_kg: targetWeight ? parseFloat(targetWeight) : null,
+    });
     await loadUsers();
     setEditUser(null);
   }
@@ -50,8 +66,12 @@ export default function ProfileSettingsScreen({ navigation }) {
   async function handleConnect() {
     if (!hiveUsername.trim() || !hivePassword.trim() || !hiveUrl.trim()) return;
     setConnectError('');
-    setConnecting(true);
     const url = hiveUrl.trim();
+    if (!url.startsWith('https://') && !url.startsWith('http://localhost') && !url.startsWith('http://192.168.') && !url.startsWith('http://10.')) {
+      setConnectError('URL should use https:// for non-local servers');
+      return;
+    }
+    setConnecting(true);
     try {
       const token = await loginToOpenHive(url, hiveUsername.trim(), hivePassword);
       await saveUserToken(editUser.id, token);
@@ -121,6 +141,29 @@ export default function ProfileSettingsScreen({ navigation }) {
                   />
                 ))}
               </View>
+              <Text style={styles.fieldLabel}>Sex</Text>
+              <View style={styles.toggleRow}>
+                {['male', 'female'].map(s => (
+                  <TouchableOpacity key={s} onPress={() => setSex(s)}
+                    style={[styles.toggleBtn, sex === s && styles.toggleBtnActive]}>
+                    <Text style={[styles.toggleText, sex === s && styles.toggleTextActive]}>
+                      {s.charAt(0).toUpperCase() + s.slice(1)}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+              <Text style={styles.fieldLabel}>Height (cm)</Text>
+              <TextInput style={styles.input} value={heightCm} onChangeText={setHeightCm}
+                placeholder="e.g. 175" placeholderTextColor={colors.textMuted}
+                keyboardType="numeric" returnKeyType="done" />
+              <Text style={styles.fieldLabel}>Birth Year</Text>
+              <TextInput style={styles.input} value={birthYear} onChangeText={setBirthYear}
+                placeholder="e.g. 1984" placeholderTextColor={colors.textMuted}
+                keyboardType="numeric" returnKeyType="done" />
+              <Text style={styles.fieldLabel}>Target Weight (kg)</Text>
+              <TextInput style={styles.input} value={targetWeight} onChangeText={setTargetWeight}
+                placeholder="e.g. 95" placeholderTextColor={colors.textMuted}
+                keyboardType="decimal-pad" returnKeyType="done" />
               <View style={styles.actions}>
                 <Button label="Cancel" onPress={() => setEditUser(null)} variant="ghost" style={{ flex: 1, marginRight: spacing.s }} />
                 <Button label="Save" onPress={handleSave} style={{ flex: 1 }} />
@@ -246,6 +289,14 @@ const styles = StyleSheet.create({
   },
   fieldLabel: { color: colors.textSub, fontSize: font.size.s, marginBottom: spacing.s, textTransform: 'uppercase', letterSpacing: 0.6 },
   colorRow: { flexDirection: 'row', gap: spacing.s, marginBottom: spacing.m },
+  toggleRow: { flexDirection: 'row', gap: spacing.s, marginBottom: spacing.m },
+  toggleBtn: {
+    flex: 1, padding: spacing.s, borderRadius: 8, alignItems: 'center',
+    backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border,
+  },
+  toggleBtnActive: { backgroundColor: colors.primary, borderColor: colors.primary },
+  toggleText: { color: colors.textSub, fontSize: font.size.s },
+  toggleTextActive: { color: colors.bg, fontWeight: font.weight.bold },
   colorDot: { width: 32, height: 32, borderRadius: 16 },
   colorDotActive: { borderWidth: 3, borderColor: colors.text },
   actions: { flexDirection: 'row', gap: spacing.s, marginTop: spacing.s },

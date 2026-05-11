@@ -8,6 +8,8 @@ import { useWorkoutStore } from '../../store/workoutStore';
 import { useUserStore } from '../../store/userStore';
 import { colors, spacing, font, radius } from '../../theme';
 import { totalVolume, formatDuration } from '../../utils/fitness';
+import { pushWorkoutLog } from '../../services/openhive';
+import { updateWorkoutSynced } from '../../database/db';
 
 const DEFAULT_REST = 90;
 
@@ -103,8 +105,13 @@ export default function ActiveWorkoutScreen({ navigation }) {
       { text: 'Cancel' },
       { text: 'Finish', style: 'default', onPress: async () => {
         try {
+          const workoutSnap   = activeWorkout;
+          const exercisesSnap = exercises;
           await finishWorkout(workoutNotes);
           navigation.navigate('WorkoutList');
+          pushWorkoutLog(activeUser, { workout: workoutSnap, exercises: exercisesSnap })
+            .then(ok => { if (ok) updateWorkoutSynced(workoutSnap.id); })
+            .catch(() => {});
         } catch (e) {
           Alert.alert('Save Failed', e.message || 'Could not save workout. Try again.');
         }
@@ -205,7 +212,7 @@ export default function ActiveWorkoutScreen({ navigation }) {
 
         {/* Add exercise button */}
         <TouchableOpacity
-          onPress={() => navigation.navigate('ExerciseLibrary')}
+          onPress={() => navigation.navigate('ExerciseLibrary', { sessionType: activeWorkout?.sessionType })}
           style={styles.addExBtn}
         >
           <Text style={styles.addExText}>+ Add Exercise</Text>

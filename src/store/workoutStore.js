@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import {
   startWorkout, finishWorkout, deleteWorkout, addExerciseToWorkout,
   addSet, completeSet, deleteSet, checkAndSavePR,
+  getInProgressWorkout, getWorkoutDetail,
 } from '../database/db';
 
 export const useWorkoutStore = create((set, get) => ({
@@ -98,5 +99,31 @@ export const useWorkoutStore = create((set, get) => ({
       await deleteWorkout(activeWorkout.id);
     }
     set({ activeWorkout: null, exercises: [], isActive: false });
+  },
+
+  resumeWorkout: async (userId) => {
+    const inProgress = await getInProgressWorkout(userId);
+    if (!inProgress) return false;
+    const { workout, exercises } = await getWorkoutDetail(inProgress.id);
+    if (!workout) return false;
+    set({
+      activeWorkout: {
+        id: workout.id,
+        name: workout.name,
+        sessionType: workout.session_type,
+        userId: workout.user_id,
+        startedAt: workout.started_at,
+      },
+      exercises: exercises.map(ex => ({
+        weId: ex.id,
+        exerciseId: ex.exercise_id,
+        name: ex.name,
+        category: ex.category,
+        equipment: ex.equipment,
+        sets: ex.sets,
+      })),
+      isActive: true,
+    });
+    return true;
   },
 }));

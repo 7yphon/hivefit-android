@@ -7,13 +7,23 @@ import { getExercises, addCustomExercise } from '../../database/db';
 import { colors, spacing, font } from '../../theme';
 import { EXERCISE_CATEGORIES, EQUIPMENT_TYPES } from '../../utils/fitness';
 
-export default function ExerciseLibraryScreen({ navigation }) {
+const SESSION_CATEGORY_MAP = {
+  martial_arts: 'Martial Arts',
+  yoga: 'Yoga',
+  pilates: 'Pilates',
+  bodycombat: 'BodyCombat',
+  chair_yoga: 'Chair Yoga',
+  chair_pilates: 'Chair Pilates',
+};
+
+export default function ExerciseLibraryScreen({ navigation, route }) {
   const { activeUser } = useUserStore();
   const { addExercise } = useWorkoutStore();
   const [exercises, setExercises] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [search, setSearch] = useState('');
-  const [category, setCategory] = useState('All');
+  const initialCategory = SESSION_CATEGORY_MAP[route?.params?.sessionType] ?? 'All';
+  const [category, setCategory] = useState(initialCategory);
   const [showAdd, setShowAdd] = useState(false);
   const [newEx, setNewEx] = useState({ name: '', category: 'Chest', equipment: 'Barbell', muscle_groups: '' });
 
@@ -72,6 +82,7 @@ export default function ExerciseLibraryScreen({ navigation }) {
         data={categories}
         keyExtractor={c => c}
         showsHorizontalScrollIndicator={false}
+        style={{ flexGrow: 0 }}
         contentContainerStyle={styles.catScroll}
         renderItem={({ item }) => (
           <TouchableOpacity
@@ -86,6 +97,7 @@ export default function ExerciseLibraryScreen({ navigation }) {
       <FlatList
         data={filtered}
         keyExtractor={e => String(e.id)}
+        style={{ flex: 1 }}
         contentContainerStyle={styles.list}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => handleSelect(item)} style={styles.row}>

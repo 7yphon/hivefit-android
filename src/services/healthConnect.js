@@ -4,6 +4,7 @@ import {
   openHealthConnectSettings,
   getGrantedPermissions,
   readRecords,
+  aggregateRecord,
   getSdkStatus,
   SdkAvailabilityStatus,
 } from 'react-native-health-connect';
@@ -61,6 +62,7 @@ export async function checkHealthPermissions() {
   }
 }
 
+// Rolling window — for weight/body fat lookbacks
 function timeRange(daysBack = 1) {
   const end = new Date();
   const start = new Date();
@@ -72,28 +74,38 @@ function timeRange(daysBack = 1) {
   };
 }
 
+// Midnight-to-now — for "today" stats so we don't bleed yesterday's data
+function todayTimeRange() {
+  const start = new Date();
+  start.setHours(0, 0, 0, 0);
+  return {
+    operator: 'between',
+    startTime: start.toISOString(),
+    endTime: new Date().toISOString(),
+  };
+}
+
 export async function getTodaySteps() {
   try {
-    const { records } = await readRecords('Steps', { timeRangeFilter: timeRange(1) });
-    return records.reduce((sum, r) => sum + (r.count || 0), 0);
+    const result = await aggregateRecord({ recordType: 'Steps', timeRangeFilter: todayTimeRange() });
+    return result.COUNT_TOTAL ?? null;
   } catch { return null; }
 }
 
 export async function getTodayCalories() {
   try {
-    const { records } = await readRecords('TotalCaloriesBurned', { timeRangeFilter: timeRange(1) });
-    if (records.length) return Math.round(records.reduce((sum, r) => sum + (r.energy?.inKilocalories || 0), 0));
-    // Fallback to active calories if total not available
-    const { records: active } = await readRecords('ActiveCaloriesBurned', { timeRangeFilter: timeRange(1) });
-    return Math.round(active.reduce((sum, r) => sum + (r.energy?.inKilocalories || 0), 0));
+    const total = await aggregateRecord({ recordType: 'TotalCaloriesBurned', timeRangeFilter: todayTimeRange() });
+    if (total.ENERGY_TOTAL != null) return Math.round(total.ENERGY_TOTAL.inKilocalories);
+    const active = await aggregateRecord({ recordType: 'ActiveCaloriesBurned', timeRangeFilter: todayTimeRange() });
+    return active.ENERGY_TOTAL != null ? Math.round(active.ENERGY_TOTAL.inKilocalories) : null;
   } catch { return null; }
 }
 
 export async function getTodayDistance() {
   try {
-    const { records } = await readRecords('Distance', { timeRangeFilter: timeRange(1) });
-    const metres = records.reduce((sum, r) => sum + (r.distance?.inMeters || 0), 0);
-    return Math.round(metres / 10) / 100; // km, 2dp
+    const result = await aggregateRecord({ recordType: 'Distance', timeRangeFilter: todayTimeRange() });
+    if (result.DISTANCE_TOTAL == null) return null;
+    return Math.round(result.DISTANCE_TOTAL.inMeters / 10) / 100; // km, 2dp
   } catch { return null; }
 }
 
@@ -101,9 +113,11 @@ export async function getLatestHeartRate() {
   try {
     const { records } = await readRecords('HeartRate', { timeRangeFilter: timeRange(1) });
     if (!records.length) return null;
-    const all = records.flatMap(r => r.samples || []);
-    if (!all.length) return null;
-    return Math.round(all.reduce((s, r) => s + r.beatsPerMinute, 0) / all.length);
+    // Sort by time descending, take the most recent sample
+    const sorted = [...records].sort((a, b) => new Date(b.endTime) - new Date(a.endTime));
+    const samples = sorted[0]?.samples || [];
+    if (!samples.length) return null;
+    return Math.round(samples[samples.length - 1].beatsPerMinute);
   } catch { return null; }
 }
 
@@ -135,6 +149,28 @@ export async function getRecentExerciseSessions(days = 7) {
       endTime: r.endTime,
       durationMins: Math.round((new Date(r.endTime) - new Date(r.startTime)) / 60000),
     }));
+  } catch { return []; }
+}
+
+export async function getWeightHistory(days = 365) {
+  try {
+    const { records } = await readRecords('Weight', { timeRangeFilter: timeRange(days) });
+    return records.map(r => ({
+      date: r.time.substring(0, 10),
+      time: r.time,
+      weight_kg: Math.round(r.weight.inKilograms * 10) / 10,
+    })).sort((a, b) => a.time.localeCompare(b.time));
+  } catch { return []; }
+}
+
+export async function getBodyFatHistory(days = 365) {
+  try {
+    const { records } = await readRecords('BodyFat', { timeRangeFilter: timeRange(days) });
+    return records.map(r => ({
+      date: r.time.substring(0, 10),
+      time: r.time,
+      body_fat_pct: Math.round(r.percentage * 10) / 10,
+    })).sort((a, b) => a.time.localeCompare(b.time));
   } catch { return []; }
 }
 

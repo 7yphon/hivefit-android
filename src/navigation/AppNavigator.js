@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Text, View } from 'react-native';
 import { colors } from '../theme';
+import { useUserStore } from '../store/userStore';
+import SetupScreen from '../screens/Auth/SetupScreen';
 import HomeScreen from '../screens/Home/HomeScreen';
 import WorkoutListScreen from '../screens/Workout/WorkoutListScreen';
 import ActiveWorkoutScreen from '../screens/Workout/ActiveWorkoutScreen';
@@ -59,6 +61,18 @@ function MoreStack() {
 }
 
 export default function AppNavigator() {
+  const { users, loadUsers } = useUserStore();
+
+  useEffect(() => { loadUsers(); }, []);
+
+  if (users.length === 0) {
+    return (
+      <NavigationContainer>
+        <SetupScreen />
+      </NavigationContainer>
+    );
+  }
+
   return (
     <NavigationContainer>
       <Tab.Navigator

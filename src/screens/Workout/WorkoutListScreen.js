@@ -1,16 +1,18 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Modal, TextInput } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Modal, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Screen, Header, Card, Button } from '../../components/Screen';
 import { useUserStore } from '../../store/userStore';
 import { useWorkoutStore } from '../../store/workoutStore';
 import { getWorkouts } from '../../database/db';
 import { colors, spacing, font } from '../../theme';
-import { MARTIAL_DISCIPLINES } from '../../utils/fitness';
+import { MARTIAL_DISCIPLINES, SESSION_TYPES } from '../../utils/fitness';
 
 export default function WorkoutListScreen({ navigation }) {
   const { activeUser } = useUserStore();
   const { isActive, startWorkout } = useWorkoutStore();
+  const insets = useSafeAreaInsets();
   const [workouts, setWorkouts] = useState([]);
   const [showStartModal, setShowStartModal] = useState(false);
   const [workoutName, setWorkoutName] = useState('');
@@ -62,7 +64,7 @@ export default function WorkoutListScreen({ navigation }) {
             <Text style={styles.monthLabel}>{month}</Text>
             {items.map(w => (
               <TouchableOpacity key={w.id} onPress={() => navigation.navigate('WorkoutDetail', { workoutId: w.id })} style={styles.workoutCard}>
-                <View style={[styles.sessionDot, { backgroundColor: w.session_type === 'martial_arts' ? colors.martial : colors.primary }]} />
+                <View style={[styles.sessionDot, { backgroundColor: colors[SESSION_TYPES.find(s => s.type === w.session_type)?.colorKey] ?? colors.primary }]} />
                 <View style={styles.workoutInfo}>
                   <Text style={styles.workoutName}>{w.name}</Text>
                   <Text style={styles.workoutMeta}>
@@ -85,8 +87,12 @@ export default function WorkoutListScreen({ navigation }) {
 
       {/* Start modal */}
       <Modal visible={showStartModal} transparent animationType="slide" onRequestClose={() => setShowStartModal(false)}>
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalBox}>
+        <KeyboardAvoidingView
+          style={styles.modalOverlay}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        >
+          <TouchableOpacity style={StyleSheet.absoluteFill} onPress={() => setShowStartModal(false)} />
+          <View style={[styles.modalBox, { paddingBottom: Math.max(spacing.l, insets.bottom) + spacing.m }]}>
             <Text style={styles.modalTitle}>New Workout</Text>
 
             <TextInput
@@ -100,13 +106,13 @@ export default function WorkoutListScreen({ navigation }) {
 
             <Text style={styles.typeLabel}>Session type</Text>
             <View style={styles.typeRow}>
-              {[['strength', '🏋️ Strength'], ['martial_arts', '🥊 Martial Arts']].map(([type, label]) => (
+              {SESSION_TYPES.map(({ type, label, colorKey }) => (
                 <TouchableOpacity
                   key={type}
                   onPress={() => setSessionType(type)}
-                  style={[styles.typeBtn, sessionType === type && styles.typeBtnActive]}
+                  style={[styles.typeBtn, sessionType === type && { borderColor: colors[colorKey], backgroundColor: colors[colorKey] + '22' }]}
                 >
-                  <Text style={[styles.typeBtnText, sessionType === type && styles.typeBtnTextActive]}>{label}</Text>
+                  <Text style={[styles.typeBtnText, sessionType === type && { color: colors[colorKey] }]}>{label}</Text>
                 </TouchableOpacity>
               ))}
             </View>
@@ -116,7 +122,7 @@ export default function WorkoutListScreen({ navigation }) {
               <Button label="Start" onPress={handleStart} disabled={!workoutName.trim()} style={{ flex: 1 }} />
             </View>
           </View>
-        </View>
+        </KeyboardAvoidingView>
       </Modal>
     </Screen>
   );
@@ -145,7 +151,7 @@ const styles = StyleSheet.create({
   emptyText: { color: colors.text, fontSize: font.size.l },
   emptySubText: { color: colors.textSub, fontSize: font.size.m, marginTop: spacing.s },
   modalOverlay: { flex: 1, backgroundColor: '#000a', justifyContent: 'flex-end' },
-  modalBox: { backgroundColor: colors.surface, borderRadius: 16, padding: spacing.l, paddingBottom: 32 },
+  modalBox: { backgroundColor: colors.surface, borderRadius: 16, padding: spacing.l },
   modalTitle: { color: colors.text, fontSize: font.size.xl, fontWeight: font.weight.bold, marginBottom: spacing.l },
   input: {
     backgroundColor: colors.card, borderRadius: 10, padding: spacing.m,
@@ -153,14 +159,12 @@ const styles = StyleSheet.create({
     borderWidth: 1, borderColor: colors.border,
   },
   typeLabel: { color: colors.textSub, fontSize: font.size.s, marginBottom: spacing.s },
-  typeRow: { flexDirection: 'row', gap: spacing.s, marginBottom: spacing.l },
+  typeRow: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.s, marginBottom: spacing.l },
   typeBtn: {
-    flex: 1, padding: spacing.m, borderRadius: 10,
-    backgroundColor: colors.card, alignItems: 'center',
-    borderWidth: 1, borderColor: colors.border,
+    width: '48%', paddingVertical: spacing.s, paddingHorizontal: spacing.m,
+    borderRadius: 10, backgroundColor: colors.card,
+    alignItems: 'center', borderWidth: 1, borderColor: colors.border,
   },
-  typeBtnActive: { borderColor: colors.primary, backgroundColor: colors.primary + '22' },
   typeBtnText: { color: colors.textSub, fontSize: font.size.s, fontWeight: font.weight.medium },
-  typeBtnTextActive: { color: colors.primary },
   modalActions: { flexDirection: 'row', gap: spacing.s },
 });

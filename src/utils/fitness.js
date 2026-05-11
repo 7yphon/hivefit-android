@@ -53,6 +53,16 @@ export const BARBELL_PRESETS = [
   { label: 'EZ Bar (10kg)', weight: 10 },
 ];
 
+export const SESSION_TYPES = [
+  { type: 'strength',      label: '🏋️ Strength',      colorKey: 'primary' },
+  { type: 'martial_arts',  label: '🥊 Martial Arts',   colorKey: 'martial' },
+  { type: 'yoga',          label: '🧘 Yoga',            colorKey: 'yoga' },
+  { type: 'pilates',       label: '🌿 Pilates',         colorKey: 'pilates' },
+  { type: 'bodycombat',    label: '🔥 BodyCombat',      colorKey: 'bodycombat' },
+  { type: 'chair_yoga',    label: '🪑 Chair Yoga',      colorKey: 'chair_yoga' },
+  { type: 'chair_pilates', label: '🪑 Chair Pilates',   colorKey: 'chair_pilates' },
+];
+
 export const MARTIAL_DISCIPLINES = [
   'Boxing', 'Kickboxing', 'Muay Thai', 'Taekwondo',
   'Tai Chi', 'BJJ', 'Wrestling', 'MMA', 'Bag Work',
@@ -60,7 +70,9 @@ export const MARTIAL_DISCIPLINES = [
 ];
 
 export const EXERCISE_CATEGORIES = [
-  'Chest', 'Back', 'Shoulders', 'Arms', 'Legs', 'Core', 'Cardio', 'Martial Arts', 'Other',
+  'Chest', 'Back', 'Shoulders', 'Arms', 'Legs', 'Core', 'Cardio',
+  'Martial Arts', 'Yoga', 'Pilates', 'BodyCombat',
+  'Chair Yoga', 'Chair Pilates', 'Other',
 ];
 
 export const EQUIPMENT_TYPES = [

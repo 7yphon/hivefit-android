@@ -29,15 +29,19 @@ export default function HomeScreen({ navigation }) {
   useEffect(() => {
     const sub = AppState.addEventListener('change', async (next) => {
       if (appState.current.match(/inactive|background/) && next === 'active') {
+        let freshPermsGranted = false;
         if (hcWaiting.current) {
           hcWaiting.current = false;
           const hasPerms = await checkHealthPermissions();
           if (hasPerms) {
             setHcAvailable(true);
             setHcNeedsPermission(false);
+            freshPermsGranted = true;
+            const data = await getDashboardData();
+            setHcData(data);
           }
         }
-        if (hcAvailableRef.current) {
+        if (!freshPermsGranted && hcAvailableRef.current) {
           const data = await getDashboardData();
           setHcData(data);
         }
@@ -198,8 +202,8 @@ export default function HomeScreen({ navigation }) {
 
         {/* Start workout */}
         <Button
-          label="+ Start Workout"
-          onPress={() => navigation.navigate('Workout', { screen: 'ActiveWorkout' })}
+          label={isActive ? '🏋️  Resume Workout' : '+ Start Workout'}
+          onPress={() => navigation.navigate('Workout', isActive ? { screen: 'ActiveWorkout' } : undefined)}
           style={styles.startBtn}
         />
 

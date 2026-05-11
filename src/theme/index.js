@@ -12,6 +12,11 @@ export const colors = {
   warning: '#f97316',
   danger: '#ef4444',
   martial: '#f97316',      // orange — martial arts sessions
+  yoga: '#a78bfa',         // violet — yoga sessions
+  pilates: '#2dd4bf',      // teal — pilates sessions
+  bodycombat: '#f43f5e',   // rose — bodycombat sessions
+  chair_yoga: '#d8b4fe',   // lavender — chair yoga sessions
+  chair_pilates: '#a5f3fc', // light cyan — chair pilates sessions
   rest: '#10b981',         // teal — rest timer
 };
 

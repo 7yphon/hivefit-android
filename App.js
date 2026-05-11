@@ -3,8 +3,9 @@ import { View, ActivityIndicator, Text, ScrollView } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import AppNavigator from './src/navigation/AppNavigator';
 import ErrorBoundary from './src/components/ErrorBoundary';
-import { getDb } from './src/database/db';
+import { getDb, getActiveUser } from './src/database/db';
 import { useUserStore } from './src/store/userStore';
+import { useWorkoutStore } from './src/store/workoutStore';
 import { colors } from './src/theme';
 
 export default function App() {
@@ -17,6 +18,10 @@ export default function App() {
       try {
         await getDb();
         await loadUsers();
+        const activeUser = await getActiveUser();
+        if (activeUser) {
+          await useWorkoutStore.getState().resumeWorkout(activeUser.id);
+        }
         setDbReady(true);
       } catch (e) {
         console.error('Bootstrap failed:', e);

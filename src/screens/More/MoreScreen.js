@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { AppState, View, Text, ScrollView, TouchableOpacity, ActivityIndicator, StyleSheet } from 'react-native';
+import { Alert, AppState, View, Text, ScrollView, TouchableOpacity, ActivityIndicator, StyleSheet } from 'react-native';
 import { Screen, Header } from '../../components/Screen';
 import { useUserStore } from '../../store/userStore';
 import { checkHealthPermissions, requestHealthPermissions } from '../../services/healthConnect';
+import { fetchPlans, markPlanImported } from '../../services/openhive';
+import { importPlanMarkdown } from '../../database/db';
 import { colors, spacing, font } from '../../theme';
 
 const MENU = [
@@ -14,6 +16,7 @@ export default function MoreScreen({ navigation }) {
   const { activeUser } = useUserStore();
   const [hcGranted, setHcGranted] = useState(false);
   const [hcRequesting, setHcRequesting] = useState(false);
+  const [planChecking, setPlanChecking] = useState(false);
   const appState = useRef(AppState.currentState);
   const hcWaiting = useRef(false);
 
@@ -32,6 +35,46 @@ export default function MoreScreen({ navigation }) {
     });
     return () => sub.remove();
   }, []);
+
+  async function handleCheckPlans() {
+    if (!activeUser?.openhive_url) {
+      Alert.alert('Not Connected', 'Link an OpenHive account in your profile first.');
+      return;
+    }
+    setPlanChecking(true);
+    try {
+      const plans = await fetchPlans(activeUser);
+      if (plans.length === 0) {
+        Alert.alert('No Plans', 'No plans waiting from your trainer.');
+        return;
+      }
+      for (const plan of plans) {
+        await new Promise(resolve => {
+          Alert.alert(
+            '📋 New Plan',
+            plan.title,
+            [
+              { text: 'Skip', style: 'cancel', onPress: resolve },
+              { text: 'Import', onPress: async () => {
+                try {
+                  await importPlanMarkdown(plan.content, activeUser.id);
+                  await markPlanImported(activeUser, plan.id);
+                } catch (e) {
+                  Alert.alert('Import Failed', e.message || 'Could not import plan.');
+                } finally {
+                  resolve();
+                }
+              }},
+            ]
+          );
+        });
+      }
+    } catch {
+      Alert.alert('Error', 'Could not reach OpenHive. Check your connection.');
+    } finally {
+      setPlanChecking(false);
+    }
+  }
 
   async function handleReAuthHC() {
     setHcRequesting(true);
@@ -84,6 +127,20 @@ export default function MoreScreen({ navigation }) {
           }
         </TouchableOpacity>
 
+        {activeUser?.openhive_url && (
+          <TouchableOpacity style={styles.row} onPress={handleCheckPlans} disabled={planChecking}>
+            <Text style={styles.icon}>🤖</Text>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.label}>Check for Plans</Text>
+              <Text style={styles.rowSub}>Import workout plans from your AI trainer</Text>
+            </View>
+            {planChecking
+              ? <ActivityIndicator size="small" color={colors.textSub} />
+              : <Text style={styles.arrow}>›</Text>
+            }
+          </TouchableOpacity>
+        )}
+
         {MENU.map(item => (
           <TouchableOpacity
             key={item.label}
@@ -102,7 +159,7 @@ export default function MoreScreen({ navigation }) {
           </TouchableOpacity>
         ))}
 
-        <Text style={styles.version}>HiveFit v0.1.0 — Phase 1</Text>
+        <Text style={styles.version}>HiveFit v1.0.0</Text>
       </ScrollView>
     </Screen>
   );
