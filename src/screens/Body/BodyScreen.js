@@ -59,6 +59,11 @@ export default function BodyScreen() {
         setSyncMsg('No data found in Health Connect');
         return;
       }
+      const current = metrics[0] ?? null;
+      if (current && current.weight_kg === weight && current.body_fat_pct === bodyFat) {
+        setSyncMsg('Already up to date');
+        return;
+      }
       const bmi = calcBMI(weight, activeUser.height_cm);
       const bmr = calcBMR(weight, activeUser.height_cm, activeUser.sex, activeUser.birth_year);
       await saveBodyMetrics(activeUser.id, {
