@@ -85,25 +85,29 @@ function todayTimeRange() {
   };
 }
 
+// Samsung Health package — filter to prevent double-counting with other HC sources
+const SAMSUNG_HEALTH = ['com.sec.android.app.shealth'];
+
 export async function getTodaySteps() {
   try {
-    const result = await aggregateRecord({ recordType: 'Steps', timeRangeFilter: todayTimeRange() });
+    const result = await aggregateRecord({ recordType: 'Steps', timeRangeFilter: todayTimeRange(), dataOriginFilter: SAMSUNG_HEALTH });
     return result.COUNT_TOTAL ?? null;
   } catch { return null; }
 }
 
 export async function getTodayCalories() {
   try {
-    const total = await aggregateRecord({ recordType: 'TotalCaloriesBurned', timeRangeFilter: todayTimeRange() });
-    if (total.ENERGY_TOTAL != null) return Math.round(total.ENERGY_TOTAL.inKilocalories);
-    const active = await aggregateRecord({ recordType: 'ActiveCaloriesBurned', timeRangeFilter: todayTimeRange() });
-    return active.ENERGY_TOTAL != null ? Math.round(active.ENERGY_TOTAL.inKilocalories) : null;
+    // ActiveCaloriesBurned matches Samsung Health's display; TotalCaloriesBurned includes BMR
+    const active = await aggregateRecord({ recordType: 'ActiveCaloriesBurned', timeRangeFilter: todayTimeRange(), dataOriginFilter: SAMSUNG_HEALTH });
+    if (active.ENERGY_TOTAL != null) return Math.round(active.ENERGY_TOTAL.inKilocalories);
+    const total = await aggregateRecord({ recordType: 'TotalCaloriesBurned', timeRangeFilter: todayTimeRange(), dataOriginFilter: SAMSUNG_HEALTH });
+    return total.ENERGY_TOTAL != null ? Math.round(total.ENERGY_TOTAL.inKilocalories) : null;
   } catch { return null; }
 }
 
 export async function getTodayDistance() {
   try {
-    const result = await aggregateRecord({ recordType: 'Distance', timeRangeFilter: todayTimeRange() });
+    const result = await aggregateRecord({ recordType: 'Distance', timeRangeFilter: todayTimeRange(), dataOriginFilter: SAMSUNG_HEALTH });
     if (result.DISTANCE_TOTAL == null) return null;
     return Math.round(result.DISTANCE_TOTAL.inMeters / 10) / 100; // km, 2dp
   } catch { return null; }
