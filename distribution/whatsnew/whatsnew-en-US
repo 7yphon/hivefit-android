@@ -1,0 +1,7 @@
+What's new:
+- Steps, calories and distance now match Samsung Health and are no longer counted twice.
+- Fixed Health Connect permission prompts that did not appear on some Samsung phones.
+- Health data refreshes when you open the app, switch to Home or pull down to refresh.
+- Start Workout opens the right screen.
+- Unfinished workouts resume after a restart. Discarded workouts no longer show in history.
+- Body sync says "Already up to date" instead of saving the same entry again.

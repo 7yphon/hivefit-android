@@ -12,6 +12,10 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      # Secrets cannot be used directly in step "if:" conditions, so the
+      # Play upload step checks this job-level flag instead.
+      HAS_PLAY_KEY: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON != '' }}
 
     steps:
       - name: Checkout
@@ -76,3 +80,14 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: hivefit-*.aab
+
+      - name: Upload AAB to Google Play (production)
+        if: startsWith(github.ref, 'refs/tags/') && env.HAS_PLAY_KEY == 'true'
+        uses: r0adkll/upload-google-play@e738b9dd8f2476ea806d921b64aacd24f34515a5 # v1.1.5
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
+          packageName: au.Hivefit.app
+          releaseFiles: android/app/build/outputs/bundle/release/app-release.aab
+          track: production
+          status: completed
+          whatsNewDirectory: distribution/whatsnew
